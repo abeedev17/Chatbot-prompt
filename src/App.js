@@ -1,55 +1,48 @@
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, { useState } from "react";
+import { InputBox } from "./components/Index";
+import useCurrencyInfo from "./hooks/useCurrencyInfo";
 
 const App = () => {
-  const [length, setLength] = useState(8);
-  const [characters, setCharacters] = useState(false);
-  const [numbers, setNumbers] = useState(false);
-  const [password, setPassword] = useState("");
-  const passwordRef = useRef(null);
+  const [amount, setAmount] = useState(0);
+  const [from, setFrom] = useState("inr");
+  const [to, setTo] = useState("usd");
+  const [convertedAmount, setConvertedAmount] = useState(0);
+  const currencyInfo = useCurrencyInfo(from);
+  const options = Object.keys(currencyInfo);
+  const swap = () => {
+    setFrom(to);
+    setTo(from);
+    setConvertedAmount(amount);
+    setAmount(convertedAmount);
+  };
 
-  const passGen = useCallback(() => {
-    let str = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-    let pass = "";
-
-    if (numbers) str += "0123456789";
-    if (characters) str += "~`@#$%^&*_<>/?";
-
-    for (let i = 1; i <= length; i++) {
-      let index = Math.floor(Math.random() * str.length);
-      pass += str.charAt(index);
-    }
-    setPassword(pass);
-  }, [length, characters, numbers, setPassword]);
-
-  useEffect(() => {
-    passGen();
-  }, [length, characters, numbers, setPassword]);
-
-  const copy = useCallback(() => {
-    window.navigator.clipboard.writeText(password);
-    passwordRef.current?.select();
-  }, [password]);
+  const convert = () => {
+    setConvertedAmount(amount * currencyInfo[to]);
+  };
 
   return (
     <div>
-      <div>
-        <input type="text" name="password" id="password" placeholder="Password" defaultValue={password} readOnly ref={passwordRef}/>
-        <button onClick={copy}>Copy</button>
-      </div>
-      <div>
-        <input type="range" name="length" id="length" min="8" max="100" value={length} onChange={(e) => setLength(e.target.value)}/>
-        <span>Length: {length}</span>
-        <input type="checkbox" name="" id="characterInput" defaultChecked={characters} onChange={() => {
-          setCharacters((prev) => !prev)
-        }}/>
-        <label htmlFor="characterInput">Character: </label>
-        <input type="checkbox" name="" id="numberInput" defaultChecked={numbers} onChange={() => {
-          setNumbers((prev) => !prev)
-        }} />
-        <label htmlFor="numberInput">Number: </label>
-      </div>
+      <InputBox
+        fromto="From"
+        amount={amount}
+        currencyOptions={options}
+        onCurrencyChange={(currency) => setFrom(currency)}
+        onAmountChange={(amount) => setAmount(amount)}
+        selectCurrency={from}
+      />
+
+      <InputBox
+        fromto="To"
+        amount={convertedAmount}
+        currencyOptions={options}
+        onCurrencyChange={(currency) => setTo(currency)}
+        selectCurrency={to}
+        amountDisable
+      />
+      <button onClick={convert}>Convert</button>
+      <button onClick={swap}>Swap</button>
     </div>
   );
-}
+};
 
 export default App;
