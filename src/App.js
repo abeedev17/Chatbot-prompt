@@ -1,20 +1,15 @@
 import React, { useState } from "react";
 
 const App = () => {
-  const [count, setCount] = useState(0);
-  const addValue = () => {
-    setCount(count + 1);
-  }
-
-  const removeValue = () => {
-    setCount(count - 1);
-  }
-
+  const [color, setColor] = useState("purple");
   return (
     <div>
-      <h1>Counter = {count}</h1>
-      <button onClick={addValue}> + </button>
-      <button onClick={removeValue}> - </button>
+      Hello
+      <div style={{width: 100, height: 100, backgroundColor: color}}></div>
+      <div>
+        <button onClick={() => setColor("red")}>Red</button>
+        <button onClick={() => setColor("blue")}>Blue</button>
+      </div>
     </div>
   );
 }
