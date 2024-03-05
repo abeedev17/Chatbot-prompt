@@ -1,13 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
 
-import MyComponent from './MyComponent';
+const App = () => {
+  const [count, setCount] = useState(0);
+  const addValue = () => {
+    setCount(count + 1);
+  }
 
-function App() {
+  const removeValue = () => {
+    setCount(count - 1);
+  }
+
   return (
-    <div className="App">
-      <h1>React App</h1>
-      <MyComponent />
+    <div>
+      <h1>Counter = {count}</h1>
+      <button onClick={addValue}> + </button>
+      <button onClick={removeValue}> - </button>
     </div>
   );
 }
