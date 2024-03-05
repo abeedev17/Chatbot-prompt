@@ -1,35 +1,14 @@
-import React, { useState } from "react";
-import useUserInfo from "./hooks/useUserInfo";
-import Card from "./components/Card";
+import Login from "./components/Login/Login";
+import Profile from "./components/Profile/Profile";
+import UserContextProvider from "./context/UserContextProvider";
 
-const App = () => {
-  let [username, setUsername] = useState("git21221");
-  let [name, setName] = useState("");
-  const data = useUserInfo(username);
-  const search = () => {
-    setUsername(name);
-  };
-
+function App() {
   return (
-    <div>
-      <h1>Github</h1>
-      <Card
-        username={data.name}
-        followers={data.followers}
-        photo={data.avatar_url}
-        id={data.id}
-      />
-      <input
-        type="text"
-        value={name}
-        className="text-black"
-        onChange={(e) => setName(e.target.value)}
-      />
-      <button id="search" onClick={() => search()}>
-        Search
-      </button>
-    </div>
+    <UserContextProvider>
+      <Login />
+      <Profile />
+    </UserContextProvider>
   );
-};
+}
 
 export default App;
