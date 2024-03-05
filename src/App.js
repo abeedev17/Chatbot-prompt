@@ -1,14 +1,7 @@
-import Login from "./components/Login/Login";
-import Profile from "./components/Profile/Profile";
-import UserContextProvider from "./context/UserContextProvider";
+import React from "react";
 
 function App() {
-  return (
-    <UserContextProvider>
-      <Login />
-      <Profile />
-    </UserContextProvider>
-  );
+  return <div>hello</div>;
 }
 
 export default App;
