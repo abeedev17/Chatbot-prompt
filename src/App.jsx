@@ -1,18 +1,18 @@
-import React, { useState } from "react";
-import useUserInfo from "./hooks/useUserInfo";
-import Card from "./components/Card";
+import { useEffect, useState } from 'react'
+import './App.css'
+import useUserInfo from './hooks/useUserInfo'
+import Card from './components/Card'
 
-const App = () => {
+function App() {
   let [username, setUsername] = useState("git21221");
   let [name, setName] = useState("");
   const data = useUserInfo(username);
   const search = () => {
-    setUsername(name);
+    setUsername(name)
   };
-
   return (
-    <div>
-      <h1>Github</h1>
+    <>
+      <h1 className='text-5xl text-center'>Github Card</h1>
       <Card
         username={data.name}
         followers={data.followers}
@@ -22,14 +22,12 @@ const App = () => {
       <input
         type="text"
         value={name}
-        className="text-black"
+        className='text-black'
         onChange={(e) => setName(e.target.value)}
       />
-      <button id="search" onClick={() => search()}>
-        Search
-      </button>
-    </div>
-  );
-};
+      <button id="search" onClick={() => search()}>Search</button>
+    </>
+  )
+}
 
-export default App;
+export default App
