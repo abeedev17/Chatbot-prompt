@@ -1,4 +1,4 @@
-body{
+body {
   background-color: #212121;
   color: rgb(238, 238, 238);
   display: grid;
@@ -6,11 +6,11 @@ body{
   height: 100vh;
   width: 100%;
 }
-#root{
+#root {
   display: grid;
   gap: 20px;
 }
-.card{
+.card {
   height: 400px;
   display: flex;
   align-items: center;
@@ -19,16 +19,34 @@ body{
   border-radius: 20px;
   padding: 40px;
 }
-.photo{
+.photo {
   height: 150px;
   width: 150px;
 }
-.photo img{
+.photo img {
   aspect-ratio: 1 / 1;
   border-radius: 50%;
 }
-.details{
+.details {
   display: grid;
   place-items: start;
   gap: 30px;
+}
+
+.App {
+  text-align: center;
+}
+.loading {
+  font-size: xx-large;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+.heading {
+  font-weight: bolder;
+}
+.underline {
+  background-color: rgb(82, 208, 209);
+  width: 8rem;
+  height: 0.25rem;
+  margin-left: auto;
+  margin-right: auto;
 }
